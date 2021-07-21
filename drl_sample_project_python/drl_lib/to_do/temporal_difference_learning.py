@@ -1,5 +1,7 @@
 from ..do_not_touch.result_structures import PolicyAndActionValueFunction
 from ..do_not_touch.single_agent_env_wrapper import Env3
+from .temporal_difference_learning_utils import sarsa_algorithm
+from .TicTacToe import TicTacToe
 
 
 def sarsa_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
@@ -10,6 +12,10 @@ def sarsa_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     # TODO
+    env = TicTacToe()
+    result = sarsa_algorithm(env)
+    return result
+
     pass
 
 
@@ -43,6 +49,9 @@ def sarsa_on_secret_env3() -> PolicyAndActionValueFunction:
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     env = Env3()
+    result = sarsa_algorithm(env)
+    return result
+
     # TODO
     pass
 
