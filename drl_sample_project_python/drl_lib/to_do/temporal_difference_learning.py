@@ -1,6 +1,6 @@
 from ..do_not_touch.result_structures import PolicyAndActionValueFunction
 from ..do_not_touch.single_agent_env_wrapper import Env3
-from .temporal_difference_learning_utils import sarsa_algorithm
+from .temporal_difference_learning_utils import expected_sarsa, q_learning, sarsa_algorithm
 from .TicTacToe import TicTacToe
 
 
@@ -26,8 +26,9 @@ def q_learning_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Returns the optimal greedy Policy and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
-    # TODO
-    pass
+    env = TicTacToe()
+    result = q_learning(env)
+    return result
 
 
 def expected_sarsa_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
@@ -37,8 +38,9 @@ def expected_sarsa_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Returns the optimal epsilon-greedy Policy and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
-    # TODO
-    pass
+    env = TicTacToe()
+    result = expected_sarsa(env,50000,10,0.2,0.1,0.99)
+    return result
 
 
 def sarsa_on_secret_env3() -> PolicyAndActionValueFunction:
@@ -52,9 +54,6 @@ def sarsa_on_secret_env3() -> PolicyAndActionValueFunction:
     result = sarsa_algorithm(env)
     return result
 
-    # TODO
-    pass
-
 
 def q_learning_on_secret_env3() -> PolicyAndActionValueFunction:
     """
@@ -64,8 +63,8 @@ def q_learning_on_secret_env3() -> PolicyAndActionValueFunction:
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     env = Env3()
-    # TODO
-    pass
+    result = q_learning(env)
+    return result
 
 
 def expected_sarsa_on_secret_env3() -> PolicyAndActionValueFunction:
@@ -76,8 +75,8 @@ def expected_sarsa_on_secret_env3() -> PolicyAndActionValueFunction:
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     env = Env3()
-    # TODO
-    pass
+    result = expected_sarsa(env,50000,10,0.2,0.1,0.99)
+    return result
 
 
 def demo():
