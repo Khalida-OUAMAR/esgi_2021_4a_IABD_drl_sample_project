@@ -29,6 +29,13 @@ class TicTacToe(SingleAgentEnv):
         self.current_score = 0.0
         self.board = np.array(3 * [3 * [' ']], np.str)
         self.winner = -1
+        
+    def reset_random(self):
+        self.agent_pos = 0
+        self.game_over = False
+        self.current_score = 0.0
+        self.board = np.array(3 * [3 * [' ']], np.str)
+        self.winner = -1
 
     def state_id(self) -> int:
         return self.agent_pos

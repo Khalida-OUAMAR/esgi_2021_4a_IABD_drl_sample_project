@@ -35,7 +35,7 @@ def off_policy_monte_carlo_control_on_tic_tac_toe_solo() -> PolicyAndActionValue
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     env = TicTacToe()
-    q, pi = off_policy_monte_carlo_control(env, 0.1, 100, 0.99)
+    q, pi = off_policy_monte_carlo_control(env, 100, 0.99)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 
@@ -71,7 +71,7 @@ def off_policy_monte_carlo_control_on_secret_env2() -> PolicyAndActionValueFunct
     """
     env = Env2()
     env = TicTacToe()
-    q, pi = off_policy_monte_carlo_control(env, 0.1, 100, 0.99)
+    q, pi = off_policy_monte_carlo_control(env, 100, 0.99)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 

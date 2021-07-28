@@ -16,8 +16,6 @@ def sarsa_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     result = sarsa_algorithm(env)
     return result
 
-    pass
-
 
 def q_learning_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     """
@@ -27,7 +25,7 @@ def q_learning_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     env = TicTacToe()
-    result = q_learning(env)
+    result = q_learning(env,0.1,0.01,0.9,10000)
     return result
 
 
@@ -63,7 +61,7 @@ def q_learning_on_secret_env3() -> PolicyAndActionValueFunction:
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     env = Env3()
-    result = q_learning(env)
+    result = q_learning(env,0.1,0.01,0.9,10000)
     return result
 
 
@@ -86,4 +84,4 @@ def demo():
 
     print(sarsa_on_secret_env3())
     print(q_learning_on_secret_env3())
-    print(expected_sarsa_on_secret_env3())
+    #print(expected_sarsa_on_secret_env3())

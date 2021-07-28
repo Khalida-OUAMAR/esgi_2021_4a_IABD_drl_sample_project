@@ -48,6 +48,7 @@ def sarsa_algorithm(env: SingleAgentEnv,
             pi[s][np.argmax(q[s])] = 1.0 - epsilon + epsilon / len(available_actions)
 
     result = PolicyAndActionValueFunction(pi=pi, q=q)
+    evaluate(env,pi)
     return result
 
 
@@ -89,7 +90,7 @@ def q_learning(
                 else:
                     b[s][a_key] = epsilon / available_actions_count
 
-            chosen_action = np.random.choice(list(b[s].keys()), 1, False, p=list(b[s].values()))[0]
+            chosen_action = np.random.choice(list(pi[s].keys()), 1, False, p=list(pi[s].values()))[0]
 
             previous_score = env.score()
             env.act_with_action_id(chosen_action)
@@ -123,6 +124,7 @@ def q_learning(
                 pi[s][a_key] = 0.0
 
     result = PolicyAndActionValueFunction(pi=pi, q=q)
+    evaluate(env,pi)
     return result
 
 
@@ -137,35 +139,38 @@ def expected_sarsa(
 
 ):
     actions = env.available_actions_ids()
-    q = {}
+    
     pi = {}
     nb_actions = len(env.available_actions_ids())
+    q = np.random.random((nb_actions, nb_actions))
     
 
     for ep in range(episodes):
         env.reset()
         s = env.state_id()
         rdm = np.random.random()
-        a = np.random.choice(actions) if rdm < epsilon else np.argmax(q[s, :])
+        #a = np.random.choice(actions) if rdm < epsilon else np.argmax(q[s, :])
         step = 0
         while not env.is_game_over() and step < max_steps:
             
             
             s = env.state_id()
+            q[s, :] = 0.0
+            a = np.random.choice(actions) if rdm < epsilon else np.argmax(q[s, :])
             score_before = env.score()
             actions = env.available_actions_ids()
             env.act_with_action_id(a)       
             s_p = env.state_id()
             score_after = env.score()
 
-            if score_after > score_before:
-                r = 1
-            else:
-                r = 0
+            r = score_before - score_after
             
           
             rdm = np.random.random()
-            a_p = np.random.choice(actions) if rdm < epsilon else np.argmax(q[s_p, :])
+            try:
+                a_p = np.random.choice(actions) if rdm < epsilon else np.argmax(q[s_p, :])
+            except:
+                a_p = np.random.choice(actions)
             expected_value = np.mean(q[s_p,:])
             q[s, a] += alpha * (r + gamma * expected_value - q[s, a])
             s = s_p
@@ -173,10 +178,10 @@ def expected_sarsa(
             step += 1
 
 
-            pi[s, :] = epsilon / nb_actions
             pi[s, np.argmax(q[s, :])] = 1.0 - epsilon + epsilon / nb_actions
-
-    return q, pi
+    evaluate(env,pi)
+    result = PolicyAndActionValueFunction(pi=pi, q=q)
+    return result
 
 
 def get_random_action(env: SingleAgentEnv, q, state, nb_actions, epsilon):
@@ -212,24 +217,32 @@ def observe_action_result(env: SingleAgentEnv, action):
     return state, state_p, reward
 
 
-def evaluate(env, pi):
+
+def evaluate(env: SingleAgentEnv, pi):
     done = False
     state = env.reset()
     nb_episodes_test = 1000
     successes = 0
     fails = 0
-    action_dim = 9
+    action_dim = len(env.available_actions_ids())
     for i in range(nb_episodes_test):
-        state = env.reset()
+        env.reset()
         done = False
         while not done:
             if state in pi.keys():
-                action = np.random.choice(np.arange(action_dim), p=pi[state])
+                action = np.random.choice(np.arange(action_dim))
             else:
-                action = np.random.choice(get_possible_actions(state))
+                action = np.random.choice(env.available_actions_ids())
 
-            state, reward, done = step(action)
+            score_before = env.score()
+            env.act_with_action_id(action)
+            state = env.state_id()
+            reward = score_before - env.score()
+            done = env.is_game_over()
             if reward == 1:
                 successes += 1
             elif reward == -1:
                 fails += 1
+                
+    print("Success rate: ", successes*1.0/nb_episodes_test, "Failure rate: ", fails*1.0/nb_episodes_test)
+
