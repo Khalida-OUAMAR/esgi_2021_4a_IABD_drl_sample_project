@@ -22,7 +22,7 @@ def policy_evaluation_on_line_world() -> ValueFunction:
     gamma = 1.0
     start_time = time.time()
     V = policy_evaluation(P_line, pi, S_line, A_line, R_line, theta, gamma)
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print("Policy evaluation line world --- %s seconds ---" % (time.time() - start_time))
     return V
 
 
@@ -44,7 +44,7 @@ def policy_iteration_on_line_world() -> PolicyAndValueFunction:
     
     start_time = time.time()
     (pi, V) = policy_iteration(P_line, pi, S_line, A_line, R_line, theta, gamma)
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print("Policy iteration line world --- %s seconds ---" % (time.time() - start_time))
     return PolicyAndValueFunction(pi=pi, v=V)
 
 
@@ -64,7 +64,7 @@ def value_iteration_on_line_world() -> PolicyAndValueFunction:
     gamma = 0.99999
     start_time = time.time()
     (pi, V) = value_iteration(P_line, pi, S_line, A_line, R_line, theta, gamma)
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print("Value iteration line world --- %s seconds ---" % (time.time() - start_time))
     return PolicyAndValueFunction(pi=pi, v=V)
 
 
@@ -81,7 +81,7 @@ def policy_evaluation_on_grid_world() -> ValueFunction:
     gamma = 1.0
     start_time = time.time()
     V = policy_evaluation(P_grid, pi, S_grid, A_grid, R_grid, theta, gamma)
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print("Policy evaluation grid world --- %s seconds ---" % (time.time() - start_time))
     return V
 
 
@@ -98,7 +98,7 @@ def policy_iteration_on_grid_world() -> PolicyAndValueFunction:
     gamma = 1.0
     start_time = time.time()
     (pi, V) = policy_iteration(P_grid, pi, S_grid, A_grid, R_grid, theta, gamma)
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print("Policy iteration grid world --- %s seconds ---" % (time.time() - start_time))
     return PolicyAndValueFunction(pi=pi, v=V)
 
 
@@ -116,7 +116,7 @@ def value_iteration_on_grid_world() -> PolicyAndValueFunction:
     gamma = 1.0
     start_time = time.time()
     (pi, V) = value_iteration(P_grid, pi, S_grid, A_grid, R_grid, theta, gamma)
-    print("--- %s seconds ---" % (time.time() - start_time))
+    print("Value iteration grid world --- %s seconds ---" % (time.time() - start_time))
     return PolicyAndValueFunction(pi=pi, v=V)
 
 

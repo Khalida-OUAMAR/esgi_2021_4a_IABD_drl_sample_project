@@ -48,6 +48,7 @@ def sarsa_algorithm(env: SingleAgentEnv,
             pi[s][np.argmax(q[s])] = 1.0 - epsilon + epsilon / len(available_actions)
 
     result = PolicyAndActionValueFunction(pi=pi, q=q)
+    
     evaluate(env,pi)
     return result
 

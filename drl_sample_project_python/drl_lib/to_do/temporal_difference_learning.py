@@ -12,6 +12,7 @@ def sarsa_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
     # TODO
+    print("Sarsa alorithm on TTT")
     env = TicTacToe()
     result = sarsa_algorithm(env)
     return result
@@ -24,6 +25,7 @@ def q_learning_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Returns the optimal greedy Policy and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("Q Learning TTT")
     env = TicTacToe()
     result = q_learning(env,0.1,0.01,0.9,10000)
     return result
@@ -36,6 +38,7 @@ def expected_sarsa_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Returns the optimal epsilon-greedy Policy and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("Expected sarsa TTT")
     env = TicTacToe()
     result = expected_sarsa(env,50000,10,0.2,0.1,0.99)
     return result
@@ -48,6 +51,7 @@ def sarsa_on_secret_env3() -> PolicyAndActionValueFunction:
     Returns the optimal epsilon-greedy Policy and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("Sarsa alorithm on secret env")
     env = Env3()
     result = sarsa_algorithm(env)
     return result
@@ -60,6 +64,7 @@ def q_learning_on_secret_env3() -> PolicyAndActionValueFunction:
     Returns the optimal greedy Policy and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("Q Learning on secret env")
     env = Env3()
     result = q_learning(env,0.1,0.01,0.9,10000)
     return result
@@ -72,6 +77,7 @@ def expected_sarsa_on_secret_env3() -> PolicyAndActionValueFunction:
     Returns the optimal epsilon-greedy Policy and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("Expected sarsa on secret env")
     env = Env3()
     result = expected_sarsa(env,50000,10,0.2,0.1,0.99)
     return result

@@ -78,6 +78,7 @@ def monte_carlo_with_exploring_starts_control( env: SingleAgentEnv,
                 pi[st]= np.zeros(action_dim)
                 
                 pi[st][np.argmax(q[st])] = 1.0
+    evaluate(env, pi)
     return q, pi
 
  
@@ -150,6 +151,8 @@ def on_policy_first_visit_monte_carlo_control(
                 else:
                     pi[S[t]][a_key] = epsilon / len(pi[S[t]])
 
+    
+    evaluate(env, pi)
     return q, pi
 
 def off_policy_monte_carlo_control(
@@ -233,4 +236,35 @@ def off_policy_monte_carlo_control(
 
             W = W / b[st][at]
 
+    evaluate(env, pi)
     return q, pi
+
+
+
+def evaluate(env: SingleAgentEnv, pi):
+    done = False
+    state = env.reset()
+    nb_episodes_test = 1000
+    successes = 0
+    fails = 0
+    action_dim = len(env.available_actions_ids())
+    for i in range(nb_episodes_test):
+        env.reset()
+        done = False
+        while not done:
+            if state in pi.keys():
+                action = np.random.choice(np.arange(action_dim))
+            else:
+                action = np.random.choice(env.available_actions_ids())
+
+            score_before = env.score()
+            env.act_with_action_id(action)
+            state = env.state_id()
+            reward = score_before - env.score()
+            done = env.is_game_over()
+            if reward == 1:
+                successes += 1
+            elif reward == -1:
+                fails += 1
+                
+    print("Success rate: ", successes*1.0/nb_episodes_test, "Failure rate: ", fails*1.0/nb_episodes_test)

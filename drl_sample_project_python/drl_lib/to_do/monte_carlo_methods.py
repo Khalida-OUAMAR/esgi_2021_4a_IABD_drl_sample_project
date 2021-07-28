@@ -9,8 +9,9 @@ def monte_carlo_es_on_tic_tac_toe_solo() -> PolicyAndActionValueFunction:
     Launches a Monte Carlo ES (Exploring Starts) in order to find the optimal Policy and its action-value function
     Returns the Optimal Policy (Pi(s,a)) and its Action-Value function (Q(s,a))
     """
+    print("ES policy MC on TTT")
     env = TicTacToe()
-    q, pi = monte_carlo_with_exploring_starts_control(env, 10000, 100, 0.99)
+    q, pi = monte_carlo_with_exploring_starts_control(env, 10000, 100, 0.8)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 
@@ -22,8 +23,9 @@ def on_policy_first_visit_monte_carlo_control_on_tic_tac_toe_solo() -> PolicyAnd
     Returns the Optimal epsilon-greedy Policy (Pi(s,a)) and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("On policy MC on TTT")
     env = TicTacToe()
-    q, pi = on_policy_first_visit_monte_carlo_control(env, 0.1, 100, 0.99)
+    q, pi = on_policy_first_visit_monte_carlo_control(env, 0.1, 100, 0.5)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 
@@ -34,8 +36,9 @@ def off_policy_monte_carlo_control_on_tic_tac_toe_solo() -> PolicyAndActionValue
     Returns the Optimal Policy (Pi(s,a)) and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("Off policy MC on TTT")
     env = TicTacToe()
-    q, pi = off_policy_monte_carlo_control(env, 100, 0.99)
+    q, pi = off_policy_monte_carlo_control(env, 100, 0.8)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 
@@ -45,8 +48,9 @@ def monte_carlo_es_on_secret_env2() -> PolicyAndActionValueFunction:
     Launches a Monte Carlo ES (Exploring Starts) in order to find the optimal Policy and its action-value function
     Returns the Optimal Policy (Pi(s,a)) and its Action-Value function (Q(s,a))
     """
+    print("ES MC on secret env")
     env = Env2()
-    q, pi = monte_carlo_with_exploring_starts_control(env, 10000, 100, 0.99)
+    q, pi = monte_carlo_with_exploring_starts_control(env, 10000, 100, 0.8)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 
@@ -57,8 +61,9 @@ def on_policy_first_visit_monte_carlo_control_on_secret_env2() -> PolicyAndActio
     Returns the Optimal epsilon-greedy Policy (Pi(s,a)) and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("On policy MC on secret env")
     env = Env2()
-    q, pi = on_policy_first_visit_monte_carlo_control(env, 0.1, 100, 0.99)
+    q, pi = on_policy_first_visit_monte_carlo_control(env, 0.1, 100, 0.8)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 
@@ -69,9 +74,10 @@ def off_policy_monte_carlo_control_on_secret_env2() -> PolicyAndActionValueFunct
     Returns the Optimal Policy (Pi(s,a)) and its Action-Value function (Q(s,a))
     Experiment with different values of hyper parameters and choose the most appropriate combination
     """
+    print("Off policy MC on secret env")
     env = Env2()
     env = TicTacToe()
-    q, pi = off_policy_monte_carlo_control(env, 100, 0.99)
+    q, pi = off_policy_monte_carlo_control(env, 100, 0.8)
     return PolicyAndActionValueFunction(pi=pi, q=q)
 
 
